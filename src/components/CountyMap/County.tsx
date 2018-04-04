@@ -25,16 +25,12 @@ interface Props {
     zoom: number | null;
 }
 
-interface State {
-
-}
-
-class County extends React.Component<Props, State> {
+class County extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
     }
 
-    shouldComponentUpdate(nextProps: Props, nextState: State) {
+    shouldComponentUpdate(nextProps: Props, nextState: {}) {
         const { zoom, value } = this.props;
 
         return zoom !== nextProps.zoom || value !== nextProps.value;

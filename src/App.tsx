@@ -2,10 +2,13 @@ import * as React from 'react';
 import * as d3 from 'd3';
 import * as _ from 'lodash';
 
+import './App.css';
+
 import Preloader from './components/Preloader';
 import { CountyName, Payload, Salary, INIT_DATA, loadAllData } from './DataHandling';
 
 import CountyMap from './components/CountyMap';
+import Histogram from './components/Histogram';
 
 export interface State extends Payload {
 }
@@ -69,6 +72,17 @@ class App extends React.Component<{}, State> {
             width={500}
             height={500}
             zoom={zoom}
+          />
+          <Histogram
+            bins={10}
+            width={500}
+            height={500}
+            x={500}
+            y={10}
+            data={filteredSalaries}
+            axisMargin={83}
+            bottomMargin={5}
+            value={d => d.base_salary}
           />
         </svg>
       </div>

@@ -17,11 +17,7 @@ interface Props {
     zoom: number | null;
 }
 
-interface State {
-
-}
-
-class CountyMap extends React.Component<Props, State> {
+class CountyMap extends React.Component<Props, {}> {
     projection: d3.GeoProjection;
     geoPath: d3.GeoPath<any, d3.GeoPermissibleObjects>;
     quantize: d3.ScaleQuantize<number>;
