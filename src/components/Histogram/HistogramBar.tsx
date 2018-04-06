@@ -29,7 +29,7 @@ const HistogramBar: React.SFC<Props> = ({ percent, x, y, width, height }) => {
             <rect
                 width={width}
                 height={height - 2}
-                transform="transform(0, 1)"
+                transform="translate(0, 1)"
             />
             <text textAnchor="end" x={width - 5} y={height / 2 + 3}>
                 {label}

@@ -5,19 +5,25 @@ import * as _ from 'lodash';
 import './App.css';
 
 import Preloader from './components/Preloader';
-import { CountyName, Payload, Salary, INIT_DATA, loadAllData } from './DataHandling';
+import { CountyName, Filters, Payload, Salary, INIT_FILTERS, INIT_PAYLOAD, loadAllData } from './DataHandling';
 
 import CountyMap from './components/CountyMap';
 import Histogram from './components/Histogram';
+import { Title, Description, GraphDescription } from './components/Meta';
+import MedianLine from './components/MedianLine';
 
 export interface State extends Payload {
+  filteredBy: Filters;
 }
 
 class App extends React.Component<{}, State> {
   constructor(props: {}) {
     super(props);
 
-    this.state = INIT_DATA;
+    this.state = {
+      ...INIT_PAYLOAD,
+      filteredBy: INIT_FILTERS,
+    };
   }
 
   countyValue(county: CountyName, techSalariesMap: _.Dictionary<Salary[]>) {
@@ -58,10 +64,22 @@ class App extends React.Component<{}, State> {
       }
     });
 
-    let zoom: number | null = null;
+    let zoom: number | null = null,
+        medianHousehold = this.state.medianIncomesByUSState['US'][0].medianIncome;
 
     return (
       <div className="App container">
+        <Title data={filteredSalaries} filteredBy={this.state.filteredBy} />
+        <Description
+          data={filteredSalaries}
+          allData={this.state.techSalaries}
+          medianIncomesByCounty={this.state.medianIncomesByCounty}
+          filteredBy={this.state.filteredBy}
+        />
+        <GraphDescription
+          data={filteredSalaries}
+          filteredBy={this.state.filteredBy}
+        />
         <svg width="1100" height="500">
           <CountyMap
             usTopoJson={this.state.usTopoJson}
@@ -82,6 +100,16 @@ class App extends React.Component<{}, State> {
             data={filteredSalaries}
             axisMargin={83}
             bottomMargin={5}
+            value={d => d.base_salary}
+          />
+          <MedianLine
+            data={filteredSalaries}
+            x={500}
+            y={10}
+            width={600}
+            height={500}
+            bottomMargin={5}
+            median={medianHousehold}
             value={d => d.base_salary}
           />
         </svg>

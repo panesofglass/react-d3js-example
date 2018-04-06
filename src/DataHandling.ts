@@ -2,6 +2,18 @@ import * as d3 from 'd3';
 import * as _ from 'lodash';
 import * as topojson from 'topojson';
 
+export interface Filters {
+    USstate: string;
+    year: string;
+    jobTitle: string;
+}
+
+export const INIT_FILTERS: Filters = {
+    USstate: '*',
+    year: '*',
+    jobTitle: '*'
+};
+
 export interface Income {
     countyName: string;
     USstate: string;
@@ -79,7 +91,7 @@ export interface Payload {
     USstateNames: USStateName[];
 }
 
-export const INIT_DATA = {
+export const INIT_PAYLOAD: Payload = {
     usTopoJson: null,
     countyNames: [],
     medianIncomes: {},
